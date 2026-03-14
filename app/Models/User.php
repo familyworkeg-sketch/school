@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Database\Factories\UserFactory;
+use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,7 +14,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements HasAvatar, HasMedia
+class User extends Authenticatable implements HasAvatar, HasMedia , FilamentUser
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, HasRoles, InteractsWithMedia, Notifiable, TwoFactorAuthenticatable;
@@ -64,4 +66,9 @@ class User extends Authenticatable implements HasAvatar, HasMedia
     {
         return $this->getFirstMediaUrl('avatars');
     }
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->hasRole('super_admin');
+    }
+
 }
