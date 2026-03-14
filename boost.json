@@ -7,7 +7,8 @@
     "mcp": true,
     "nightwatch_mcp": false,
     "packages": [
-        "spatie/laravel-medialibrary"
+        "spatie/laravel-medialibrary",
+        "filament/filament"
     ],
     "sail": false,
     "skills": [
